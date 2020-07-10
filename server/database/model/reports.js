@@ -1,40 +1,41 @@
 const mongoose = require('mongoose');
 
-module.exports = () => {
-	const Reports = new mongoose.Schema({
-		firstName:{
-			type: String,
-			required:True
-		},
-		lastName:{
-			type: String,
-			required:True
+const Schema = mongoose.Schema
+const dataType = Schema.Types;
+const ReportSchema = new mongoose.Schema({
+		userId: {
+			type: dataType.ObjectId,
+			required: true
 		},
 		longitude: {
 			type: Number,
-			required: True,
+			required: true,
 		},
 		latitude: {
 			type: Number,
 		},
 		location: {
 			type: String,
-			required:True
+			required:true
 		},
 		placeId: {
 			type: String,
-			required: True,
+			required: true,
 		},
-	description: {
-		type: Text,
-		required: True,
+	congestionDetails:{
+		type: String,
+		required: true,
 		},
 		createdAt: {
 			type: Date,
 			default: Date.now
+		},
+		updatedAt: {
+			type: Date,
+			default: Date.now
 	}
 })
-	return Reports
-}
 
+const Reports = mongoose.model('reports', ReportSchema)
 
+module.exports = Reports

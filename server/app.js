@@ -1,18 +1,31 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import 'dotenv/config';
-import {logger} from '../server/utils/http';
+import cors from 'cors';
+import {logger} from './utils';
 import conn from '../server/database/index.js';
+import Routes from './routes/index';
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors())
 
-const PORT = process.env.PORT || 7000;
-const server = `http://localhost:${PORT}`;
+app.use('/api/v1', Routes);
+const port = process.env.PORT || 7000;
+const server = `http://localhost:${port}`;
 
 
-app.listen(PORT, () => logger(`server running on ${server}`));
 
- 
+app.get('/', (req, res) => {
+	res.status(200).json({status:200, message:'Welcome to our page'})
+});
+	
+app.all('*', (req, res) => {
+	res.status(404).json({status:404, message: 'This endpoint does not exist'})
+})
+
+app.listen(port, () => logger(`server running on ${server}`));
+
+  
