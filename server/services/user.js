@@ -17,10 +17,11 @@ export const saveUser = async (data) => {
 export const findUser = async (item) => {
 	try {
 		let where
-		where = { email: item } || { phone: item }
+		where = { $or: [{ email: item }, { phone: item }] }
 		if (isObjectId(item)) {
 			where = {_id: item}
 		}
+		
 	return	await User.findOne(where)
 
 	} catch (err) {

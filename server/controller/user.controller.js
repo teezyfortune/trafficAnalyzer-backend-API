@@ -2,13 +2,14 @@ import { saveUser, findUser } from '../services/user';
 import {SIGNUP_SUCCESS, SERVER_ERROR, LOGIN_SUCCESS, INVALID_USER } from '../utils/constant';
 import { createPassword, comparePassword, createNewToken } from '../utils/security';
 import {db} from '../database/index';
+import User from '../database/model/User';
 
 
 export const creatUser = async (req, res) => {
-	const { firstName, lastName, email, password, phone, userType } = req.body;
+	const { password} = req.body;
 	try {
 		const hash = await createPassword(password)
-		const user = await saveUser({ firstName, lastName, email, phone, password: hash, userType });
+		const user = await saveUser({...req.body, password: hash});
 
 		const payload = {
 			userId: user._id,
@@ -32,7 +33,6 @@ export const creatUser = async (req, res) => {
 		})
 
 	} catch (err) {
-		console.log('err>>>>', error);
 		return res.status(500).json({
 			status: 500,
 			message: SERVER_ERROR
@@ -60,14 +60,14 @@ export const loginUser = async (req, res) => {
 					message: LOGIN_SUCCESS,
 					data: {
 						id:user._id,
-						firstName: user.firstName,
-						lastName:user.firstName,
+						fullName: user.fullName,
 						email: user.email,
 						phone: user.phone,
 						userType: user.userType,
+						city: user.city,
+						country:user.country,
 						createdAt: user.createdAT
-					},
-					jwtToken
+					}, jwtToken
 				})
 			}
 			return res.status(401).json({
