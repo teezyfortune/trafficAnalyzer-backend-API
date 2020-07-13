@@ -9,7 +9,10 @@ export const authenticationSchema = Joi.object({
 	country: Joi.string().required(),
 	phone: phone.required(),
 	password,
-	userType:list(['admin', 'traffic-warden'])
+	userType: list(['admin', 'traffic-warden']),
+	Gender: Joi.string()
+		.min(3)
+	.max(100).required()
 })
 
 

@@ -13,19 +13,29 @@ const ReportSchema = new mongoose.Schema({
 		},
 		latitude: {
 			type: Number,
+			required:true
 		},
 		location: {
 			type: String,
 			required:true
 		},
-		placeId: {
-			type: String,
-			required: true,
+	trafficType: {
+		type: String,
+		enum: ['road blockage', 'road accident', 'official trips'],
+		required: true
 		},
 	congestionDetails:{
 		type: String,
 		required: true,
-		},
+	},
+	reportedBy: {
+		type: String,
+		required: true,
+	},
+	congestionTime: {
+		type: String,
+		required: true,
+},
 		createdAt: {
 			type: Date,
 			default: Date.now

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { getEnv } from '../utils/index';
 import { findUser } from '../services/user';
-import { SERVER_ERROR, NO_USER, UNAUTHORIZED } from '../utils/constant';
+import { SERVER_ERROR, NO_USER, UNAUTHORIZED, NOT_WARDEN } from '../utils/constant';
 import { email } from '../middleware';
 
 const signOption = {
@@ -86,6 +86,41 @@ export const verifyAdminToken = async (req, res, next) => {
 			return res.status(401).json({
 				status: 401,
 				message: UNAUTHORIZED
+			})
+		}
+		if (!token) {
+			return res.status(401).json({
+				status: 401,
+				message: 'Invalid authorization token'
+			})
+		} else {
+			req.token = token;
+			next()
+		}
+	} catch (err) {
+		return res.status(500).json({ status: 500, message:SERVER_ERROR })
+	}
+}
+
+
+export const WardenVerifyTokenMiddleware = async (req, res, next) => {
+	try {
+		const data = req.headers.authorization;
+		const token = await verifyToken(data);
+		const {userId} = token.payload
+
+		const find = await findUser(userId);
+		if (!find || find === undefined) {
+			return res.status(404).json({
+				status: 404,
+				message: NO_USER
+			})
+		}
+
+		if (find.userType !== 'traffic-warden') {
+			return res.status(401).json({
+				status: 401,
+				message: NOT_WARDEN
 			})
 		}
 		if (!token) {
