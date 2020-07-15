@@ -2,7 +2,8 @@ import express from 'express';
 import { creatUser, loginUser } from '../controller/user.controller';
 import { forgotPassword, resetPassword } from '../controller/password';
 import { authenticationSchema, loginSchema, forgotPasswordSchema, userResetPasswordSchema } from '../middleware/auth';
-import {validateInput , emailPhoneValidator } from '../middleware/validation';
+import { validateInput, emailPhoneValidator } from '../middleware/validation';
+
 
 export const authRoute = express.Router()
 
@@ -18,5 +19,3 @@ authRoute.post(`${BASE_URL}/forgot-password`, validateInput(forgotPasswordSchema
 
 authRoute.get(`${BASE_URL}/reset-password`, validateInput(userResetPasswordSchema), resetPassword);
 
-
-authRoute.post(`${BASE_URL}/add-warden`, validateInput(authenticationSchema), );

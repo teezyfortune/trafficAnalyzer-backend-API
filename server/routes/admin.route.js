@@ -14,7 +14,7 @@ export const adminRoute = express.Router()
 
 const BASE_URL = '/admin'
 
-adminRoute.post(`${BASE_URL}/add-TrafficWarder`, verifyAdminToken, validateInput(authenticationSchema), emailPhoneValidator, addTrafficWarder);
+adminRoute.post(`${BASE_URL}/add-TrafficWarden`, verifyAdminToken, validateInput(authenticationSchema), emailPhoneValidator, addTrafficWarder);
 
 adminRoute.get(`${BASE_URL}/:id/find-report`, verifyAdminToken, fetchOneReports);
 
