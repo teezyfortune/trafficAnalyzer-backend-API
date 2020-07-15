@@ -72,8 +72,8 @@ export const verifyAdminToken = async (req, res, next) => {
 	try {
 		const data = req.headers.authorization;
 		const token = await verifyToken(data);
+		console.log('>>>>>>>tken', token)
 		const {userId} = token.payload
-
 		const find = await findUser(userId);
 		if (!find || find === undefined) {
 			return res.status(404).json({
@@ -98,6 +98,7 @@ export const verifyAdminToken = async (req, res, next) => {
 			next()
 		}
 	} catch (err) {
+		console.log('>>>>>', err)
 		return res.status(500).json({ status: 500, message:SERVER_ERROR })
 	}
 }

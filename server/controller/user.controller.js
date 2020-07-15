@@ -23,12 +23,15 @@ export const creatUser = async (req, res) => {
 			message: SIGNUP_SUCCESS,
 			data: {
 				id:user._id,
-				firstName: user.firstName,
-				lastName:user.firstName,
+				firstName: user.fullName,
 				email: user.email,
 				phone: user.phone,
 				userType: user.userType,
-				createdAt: user.createdAT
+				city: user.city,
+				country:user.country,
+				createdAt: user.createdAT,
+				createdAt: user.updatedAT
+
 			}, jwtToken
 		})
 
