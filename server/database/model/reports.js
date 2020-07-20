@@ -21,14 +21,14 @@ const ReportSchema = new mongoose.Schema({
 		},
 	trafficType: {
 		type: String,
-		enum: ['road blockage', 'road accident', 'official trips'],
+		enum: ['road block', 'road accident', 'road maintenance', 'vip movement'],
 		required: true
 		},
 	congestionDetails:{
 		type: String,
 		required: true,
 	},
-	reportedBy: {
+	reportedBy:{
 		type: String,
 		required: true,
 	},

@@ -10,7 +10,7 @@ export const validateInput = (schema) => async (req, res, next) => {
 			return next()
 
 	} catch (error) {
-		return res.status(200).json({status: 422, message: formatErrorMessage(error.message) })
+		return res.status(422).json({status: 422, message: formatErrorMessage(error.message) })
 	}
 
 }
@@ -29,6 +29,6 @@ export const emailPhoneValidator = async (req, res, next) => {
     }
     return next();
   } catch (err) {
-    return res.status(500).json({status:200, message: err.message});
+    return res.status(500).json({status:500, message: err.message});
   }
 };

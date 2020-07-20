@@ -9,6 +9,7 @@ export const sendReport = async (req, res) => {
 		const {userId} = req.token.payload;
 
 		const data = await geLatLong(location);
+		 console.log('>>>>>>>data', req.body)
 		const { longitude, latitude } = data;
 		const id = userId;
 
@@ -21,10 +22,12 @@ export const sendReport = async (req, res) => {
 		if(!user && user.userType !== 'traffic-warden') {
 			return res.status(401).json({status: 401, message: NOT_WARDEN})
 		}
-		const report = await reportTraffic({...req.body, userId:user._id, longitude, latitude, reportedBy:user.fullName});
+		const report = await reportTraffic({ ...req.body, userId: user._id, longitude, latitude, reportedBy: user.fullName });
+		console.log('>>>reports', report);
 
 		return res.status(201).json({status: 201, message: REPORT_SUCCESS, data:report})
 	} catch (err) {
+		console.log('>>>err', err)
 		return res.status(500).json({ status: 500, message: SERVER_ERROR })
 	}
 }

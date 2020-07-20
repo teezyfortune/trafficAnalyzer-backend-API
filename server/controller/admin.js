@@ -37,7 +37,6 @@ export const addTrafficWarder = async (req, res) => {
 		})
 
 	} catch (err) {
-		console.log('>>>>>>>', err)
 		return res.status(500).json({
 			status: 500,
 			message: SERVER_ERROR
