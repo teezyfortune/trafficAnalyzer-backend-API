@@ -40,3 +40,31 @@ export const findReport = async (reportId) => {
 	}
 
 }
+
+export const findReportByUserId = async (userId) => {
+	try {
+		return await Reports.findOne({userId: userId})
+	} catch (err) {
+		return err
+	}
+}
+
+export const allReportByUserId = async (userId) => {
+	try {
+		return await Reports.findAll({userId: userId})
+	} catch (err) {
+		return err
+	}
+}
+
+
+export const updateReportsByWardenId = async(userId, items) => {
+	try {
+		return await Reports.findOneAndUpdate(userId, items, {
+			new: true,
+			upsert:true
+		});
+	}catch(err){
+		return err
+}
+}

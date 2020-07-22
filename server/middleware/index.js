@@ -33,3 +33,9 @@ export const list = (fields, type='type') =>
 Joi.string()
     .valid(...fields)
     .error(new Error(`Specify a valid ${type}.`));
+
+    		
+export const genderList = (fields, type='Gender') => 
+Joi.string()
+    .valid(...fields)
+    .error(new Error(`Specify a valid ${type}.`));
