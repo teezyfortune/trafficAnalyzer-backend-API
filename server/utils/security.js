@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import { getEnv } from '../utils/index';
 import { findUser } from '../services/user';
 import { SERVER_ERROR, NO_USER, UNAUTHORIZED, NOT_WARDEN } from '../utils/constant';
-import { email } from '../middleware';
 
 const signOption = {
 	issuer: 'wwww.trafficanalyzer.com',
@@ -72,7 +71,6 @@ export const verifyAdminToken = async (req, res, next) => {
 	try {
 		const data = req.headers.authorization;
 		const token = await verifyToken(data);
-		console.log('>>>>>>>tken', token)
 		const {userId} = token.payload
 		const find = await findUser(userId);
 		if (!find || find === undefined) {
@@ -98,7 +96,7 @@ export const verifyAdminToken = async (req, res, next) => {
 			next()
 		}
 	} catch (err) {
-		console.log('>>>>>', err)
+		// console.log('>>>>>', err)
 		return res.status(500).json({ status: 500, message:SERVER_ERROR })
 	}
 }

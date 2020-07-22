@@ -13,13 +13,10 @@ export const forgotPassword = async (req, res) => {
 			return res.status(404).json({status:404, message:NOT_EXIST })
 		}
 		const token = crypto({ length: 16 });
-		console.log('>>>>', token)
 
 		const see = await generateToken({token, userId:find._id });
-		console.log('>>>>', see)
-		return res.status(201).json({status:201, message:FORGOT_SUCCESS })
+		return res.status(201).json({status:201, message:FORGOT_SUCCESS, data: token })
 	} catch (err) {
-		console.log('>>>>>', err)
 		return res.status(500).json({status:500, message:SERVER_ERROR })
 }
 }
@@ -37,22 +34,19 @@ export const resetPassword = async (req, res) => {
 		if (!user || user === null) {
 			return res.status(404).json({ status: 404, message: NOT_EXIST })
 		}
-		const userPassword = await comparePassword(password, user.email);
-		console.log('>>>>compare', userPassword)
+		await comparePassword(password, user.email);
 
 		if (userPassword) { 
 		return res.status(201).json({ status: 201, message: PASSWORD_EXIST})
 		};
 		const hash = await createPassword(password)
-		const see = await updateUser(user._id, hash);
+		 await updateUser(user._id, hash);
 
-		console.log('>>>>update', see)
-		const seedel = await destroyToken(find.userId, token)
-		console.log('>>>>del', seedel)
+		 await destroyToken(find.userId, token)
 
 		return res.status(201).json({status:201, message:RESET_SUCCESS })
 	} catch (err) {
-		console.log('>>>>>', err)
+		// console.log('>>>>>', err)
 		return res.status(500).json({status:500, message:SERVER_ERROR })
 }
 }

@@ -15,8 +15,8 @@ export const geLatLong = async (city) => {
 		console.log('euserr>>>>', features[0].geometry.coordinates);
 
 		return {
-			latitude: features[0].geometry.coordinates[0],
-			longitude: features[0].geometry.coordinates[1]
+			longitude: features[0].geometry.coordinates[0],
+			latitude: features[0].geometry.coordinates[1]
 	 }
 	} catch (err) {
 		return err

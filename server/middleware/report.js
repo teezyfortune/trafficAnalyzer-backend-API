@@ -5,7 +5,7 @@ import {adm} from '../utils/security'
 
 export const reportSchema = Joi.object({
 	location: Joi.string().required(),
-	trafficStatus: list(['road blockage', 'road accident', 'official trips']),
+	trafficType: list(['road block', 'road accident', 'road maintenance', 'vip movement']),
 	congestionDetails: Joi.string(),
 	congestionTime: Joi.string()
 
