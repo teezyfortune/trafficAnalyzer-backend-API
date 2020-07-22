@@ -46,12 +46,14 @@ export const addTrafficWarder = async (req, res) => {
 export const fetchAllReportsFromWarden = async (req,res) => {
 	try {
 		const reports = await getAllReport();
+		// console.log('>>>>', reports)
 		if (reports.length === 0) {
 			return res.status(400).json({
-				status: 400,
+				status: 404,
 				message: NOT_REPORT
 			})
 		}
+
 		return res.status(200).json({
 			status: 200,
 			message: REPORTS,
@@ -87,36 +89,3 @@ export const fetchOneReports = async (req, res) => {
 				message: SERVER_ERROR
 			})	}
 }
-
-// export const createMap = async (req, res) => {
-// 	try {
-// 		// console.log('>>>>', req.token.payload)
- 
-// 		const data = await getAllReport();
-		
-		
-			
-// 		const reportInfo = {
-// 			longitude: info.longitude,
-// 			latitude: info.latitude,
-// 			congestionType: info.trafficType,
-// 			trafficDetails: info.congestionDetails,
-// 			startedTime: info.congestionTime,
-// 			location: info.location
-// 		};
-		
-// 			const map = await createMap({...req.bod, reportInfo})
-// 			return res.status(201).json({
-// 				status: 201,
-// 				message: MAP_SUCCESS,
-// 				data: map
-// 			})
-		
-// 	} catch (err) {
-// 		console.log('>>>>err', err)
-// 		return res.status(500).json({
-// 			status: 500,
-// 			message: SERVER_ERROR
-// 		});
-// 	}
-// }

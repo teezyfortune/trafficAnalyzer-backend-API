@@ -21,3 +21,5 @@ export const REPORTS = 'Reports retrieved successfully';
 export const UNDEFINED = 'This user is undefined';
 export const MAP_SUCCESS = 'Map created successfully';
 export const MAP_UPDATE = 'Map updated successfully';
+export const REPORT_UPDATE = 'Report updated successfully';
+export const INVALID_REPORT_OWNER = 'You have not created any report yet';

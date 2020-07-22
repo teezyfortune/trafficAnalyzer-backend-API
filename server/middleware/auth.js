@@ -1,5 +1,5 @@
 import Joi from '@hapi/joi';
-import { password, phone, email, list, name } from '../middleware/index';
+import { password, phone, email, list, genderList } from '../middleware/index';
                                                                                                                
 
 export const authenticationSchema = Joi.object({
@@ -10,8 +10,7 @@ export const authenticationSchema = Joi.object({
 	phone: phone.required(),
 	password,
 	userType: list(['admin', 'traffic-warden']),
-	Gender: Joi.string()
-		.min(3)
+	Gender: genderList(['Male', 'Female'])
 	.max(100).required()
 })
 
