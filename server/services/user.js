@@ -39,3 +39,24 @@ export const updateUser = async (userId, password) => {
 		return err
 }
 }
+
+export const getAllWarden = async () => {
+	try {
+		let where 
+			where = {userType: 'traffic-warden'}
+			return await User.find(where).sort({createdAt:-1});
+		} catch (error) {
+		return error
+	}
+}
+
+
+export const getOneWarden = async (wardenId) => {
+	try {
+		let where 
+			where = {userType: 'traffic-warden', _id: wardenId}
+			return await User.findOne(where)
+	} catch (err) {
+		return err
+	}
+}

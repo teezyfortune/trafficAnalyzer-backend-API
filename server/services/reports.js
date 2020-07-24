@@ -9,10 +9,9 @@ export const geLatLong = async (city) => {
 		const userAddress = city.split(' ').join('+')
 		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${userAddress}.json?access_token=${apiKey}`;
 		const { data } = await axios({ method: 'GET', url });
-		console.log('euserr>>>>', data);
 
 		const { features } = data;
-		console.log('euserr>>>>', features[0].geometry.coordinates);
+		// console.log('euserr>>>>', features[0].geometry.coordinates);
 
 		return {
 			longitude: features[0].geometry.coordinates[0],
@@ -51,7 +50,7 @@ export const findReportByUserId = async (userId) => {
 
 export const allReportByUserId = async (userId) => {
 	try {
-		return await Reports.findAll({userId: userId})
+		return await Reports.find({ userId: userId }).sort({ createdAt: -1 })
 	} catch (err) {
 		return err
 	}

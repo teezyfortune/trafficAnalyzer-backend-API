@@ -20,7 +20,6 @@ export const emailPhoneValidator = async (req, res, next) => {
     const { email, phone } = req.body;
     const checkPhone = await findUser(phone);
     const checkMail = await findUser(email);
-    console.log('>>>>>',  parseInt(phone), checkMail)
     if (
       (checkMail && checkMail !== 0) ||
       (checkPhone && checkPhone !== 0)

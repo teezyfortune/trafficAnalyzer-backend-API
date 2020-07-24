@@ -1,5 +1,5 @@
 import express from 'express';
-import { addTrafficWarder, fetchAllReportsFromWarden, fetchOneReports, createMap} from '../controller/admin';
+import { addTrafficWarder, fetchAllReportsFromWarden, fetchOneReports, getOneTrafficWarden, getTrafficWardens} from '../controller/admin';
 import { authenticationSchema} from '../middleware/auth';
 import { validateInput, emailPhoneValidator } from '../middleware/validation';
 import { mapSchema} from '../middleware/admin';
@@ -19,7 +19,13 @@ adminRoute.post(`${BASE_URL}/add-TrafficWarden`, verifyAdminToken, validateInput
 adminRoute.get(`${BASE_URL}/:id/find-report`, verifyAdminToken, fetchOneReports);
 
 
-adminRoute.get(`${BASE_URL}/findAll`, verifyAdminToken, fetchAllReportsFromWarden);
+adminRoute.get(`${BASE_URL}/find-allReports`, verifyAdminToken, fetchAllReportsFromWarden);
+
+
+adminRoute.get(`${BASE_URL}/find-allWardens`, verifyAdminToken, getTrafficWardens);
+
+
+adminRoute.get(`${BASE_URL}/:wardenId/find-warden`, verifyAdminToken, getOneTrafficWarden);
 
 
 // adminRoute.post(`${BASE_URL}/create-map`, verifyAdminToken, validateInput(mapSchema), createMap)

@@ -12,7 +12,6 @@ export const reportSchema = Joi.object({
 
 
 export const updateReportSchema = Joi.object({
-	location: Joi.string().required(),
 	trafficType: list(['road block', 'road accident', 'road maintenance', 'vip movement']),
 	congestionDetails: Joi.string(),
 	congestionTime: Joi.string()

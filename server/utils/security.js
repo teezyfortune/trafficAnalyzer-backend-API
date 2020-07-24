@@ -71,11 +71,13 @@ export const verifyAdminToken = async (req, res, next) => {
 	try {
 		const data = req.headers.authorization;
 		const token = await verifyToken(data);
-		const {userId} = token.payload
+		const { userId } = token.payload;
+
 		const find = await findUser(userId);
+
 		if (!find || find === undefined) {
-			return res.status(404).json({
-				status: 404,
+			return res.status(401).json({
+				status: 401,
 				message: NO_USER
 			})
 		}
@@ -110,8 +112,8 @@ export const WardenVerifyTokenMiddleware = async (req, res, next) => {
 
 		const find = await findUser(userId);
 		if (!find || find === undefined) {
-			return res.status(404).json({
-				status: 404,
+			return res.status(401).json({
+				status: 401,
 				message: NO_USER
 			})
 		}

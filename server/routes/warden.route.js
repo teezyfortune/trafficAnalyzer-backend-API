@@ -3,7 +3,6 @@ import { sendReport, fetchAllReportByWardenId, fetchOneReportWardenId, editRepor
 import { validateInput } from '../middleware/validation';
 import { reportSchema} from '../middleware/report';
 import {WardenVerifyTokenMiddleware} from '../utils/security'
-import { fetchAllReportsFromWarden } from '../controller/admin';
 
 
 export const wardenRoute = express.Router();
