@@ -1,5 +1,5 @@
-import { saveUser, findUser } from '../services/user';
-import {SERVER_ERROR, TRAFFIC_WARDER_SUCCESS, NOT_REPORT, REPORTS, NOT_EXIST, UNDEFINED, MAP_SUCCESS } from '../utils/constant';
+import { saveUser, findUser, getAllWarden, getOneWarden } from '../services/user';
+import {SERVER_ERROR, TRAFFIC_WARDER_SUCCESS, NOT_REPORT, REPORTS, NO_WARDEN, WARDENS,WARDEN, WARDEN_NOT_EXIST  } from '../utils/constant';
 import { createPassword, createNewToken } from '../utils/security';
 import { getAllReport, saveMap } from '../services/admin';
 import { findReport } from '../services/reports';
@@ -46,7 +46,6 @@ export const addTrafficWarder = async (req, res) => {
 export const fetchAllReportsFromWarden = async (req,res) => {
 	try {
 		const reports = await getAllReport();
-		// console.log('>>>>', reports)
 		if (reports.length === 0) {
 			return res.status(400).json({
 				status: 404,
@@ -88,4 +87,48 @@ export const fetchOneReports = async (req, res) => {
 				status: 500,
 				message: SERVER_ERROR
 			})	}
+}
+
+export const getTrafficWardens = async (req, res) => {
+	try {
+		const results = await getAllWarden();
+		if (results.length === 0) {
+			return res.status(404).json({
+				status: 404,
+				message: NO_WARDEN
+			})
+		}
+		return res.status(200).json({
+			status: 200,
+			message: WARDENS,
+			data: results
+		})
+	} catch (err) {
+		return res.status(500).json({
+			status: 500,
+			message: SERVER_ERROR
+		})	}
+}
+
+export const getOneTrafficWarden = async (req, res) => {
+	try {
+		const { wardenId } = req.params;
+
+		const warden = await getOneWarden(wardenId);
+		if (!warden || warden === null) {
+			return res.status(404).json({
+				status: 404,
+				message: WARDEN_NOT_EXIST
+			})
+		}
+		return res.status(200).json({
+			status: 200,
+			message: WARDEN,
+			data: warden
+		})
+	} catch (err) {
+		return res.status(500).json({
+			status: 500,
+			message: SERVER_ERROR
+		})	}
 }

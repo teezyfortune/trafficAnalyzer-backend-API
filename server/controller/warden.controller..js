@@ -1,5 +1,5 @@
 import { geLatLong, findReportByUserId, reportTraffic, allReportByUserId, updateReportsByWardenId } from '../services/reports';
-import { NOT_EXIST, SERVER_ERROR, REPORT_SUCCESS, NOT_WARDEN, REPORTS, REPORT_UPDATE} from '../utils/constant';
+import { NOT_EXIST, SERVER_ERROR, REPORT_SUCCESS, NOT_WARDEN, REPORTS, REPORT_UPDATE, NO_REPORT} from '../utils/constant';
 import { findUser} from '../services/user';
 
 
@@ -9,7 +9,6 @@ export const sendReport = async (req, res) => {
 		const {userId} = req.token.payload;
 
 		const data = await geLatLong(location);
-		 console.log('>>>>>>>data', req.body)
 		const { longitude, latitude } = data;
 		const id = userId;
 
@@ -27,7 +26,7 @@ export const sendReport = async (req, res) => {
 
 		return res.status(201).json({status: 201, message: REPORT_SUCCESS, data:report})
 	} catch (err) {
-		console.log('>>>err', err)
+		// console.log('>>>err', err)
 		return res.status(500).json({ status: 500, message: SERVER_ERROR })
 	}
 }
@@ -48,12 +47,19 @@ export const fetchOneReportWardenId = async (req, res) => {
 export const fetchAllReportByWardenId = async (req, res) => {
 	try {
 		const {userId} = req.token.payload;
-		const report = await allReportByUserId(userId)
+		const report = await allReportByUserId(userId);
+		if (report.length === 0) {
+			return res.status(404).json({
+				status: 404,
+				message: NO_REPORT,
+			})
+		}
 		return res.status(200).json({
 			status: 200,
 			message: REPORTS,
 			data: report
 		})
+	
 	} catch (err) {
 		return res.status(500).json({ status: 500, message: SERVER_ERROR })	}
 }
