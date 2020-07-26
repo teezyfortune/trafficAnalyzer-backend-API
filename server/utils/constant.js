@@ -26,4 +26,5 @@ export const INVALID_REPORT_OWNER = 'You have not created any report yet';
 export const NO_WARDEN = 'You have not created any warden yet';
 export const WARDENS = 'Wardens retrieved successfully';
 export const WARDEN_NOT_EXIST = 'Traffic warden does not exist';
-export const WARDEN= 'Traffic warden retrieved successfully';export const NO_REPORT = 'You have not created any report yet, kindly create one';
+export const WARDEN = 'Traffic warden retrieved successfully'; export const NO_REPORT = 'You have not created any report yet, kindly create one';
+export const NO_UPDATES = 'No traffic updates, please check back';
