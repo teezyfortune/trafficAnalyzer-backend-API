@@ -47,7 +47,7 @@ export const fetchAllReportsFromWarden = async (req,res) => {
 	try {
 		const reports = await getAllReport();
 		if (reports.length === 0) {
-			return res.status(400).json({
+			return res.status(404).json({
 				status: 404,
 				message: NOT_REPORT
 			})

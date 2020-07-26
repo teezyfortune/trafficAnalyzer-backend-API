@@ -33,15 +33,17 @@ export const sendReport = async (req, res) => {
 
 export const fetchOneReportWardenId = async (req, res) => {
 	try {
-		const {userId} = req.token.payload;
-		const report = await findReportByUserId(userId)
+		const { userId } = req.token.payload;
+		const { reportId } = req.params;
+		const report = await findReportByUserId(userId, reportId)
 		return res.status(200).json({
 			status: 200,
 			message: REPORTS,
 			data: report
 		})
 	} catch (err) {
-		return res.status(500).json({ status: 500, message: SERVER_ERROR })	}
+		return res.status(500).json({ status: 500, message: SERVER_ERROR })
+	}
 }
 
 export const fetchAllReportByWardenId = async (req, res) => {
