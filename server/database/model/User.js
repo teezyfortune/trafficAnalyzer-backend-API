@@ -17,17 +17,14 @@ const UserSchema = new mongoose.Schema({
 	},
 	city: {
 		type: String,
-		unique: true,
 		required: true,
 	},
 	country: {
 		type: String,
-		unique: true,
 		required: true,
 	},
 	Gender: {
 		type: String,
-		unique: true,
 		required: true,
 	},
 	password: {
