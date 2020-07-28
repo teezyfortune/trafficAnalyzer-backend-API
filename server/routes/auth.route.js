@@ -1,5 +1,5 @@
 import express from 'express';
-import { creatUser, loginUser } from '../controller/user.controller';
+import { creatUser, loginUser, logOut } from '../controller/user.controller';
 import { forgotPassword, resetPassword } from '../controller/password';
 import { authenticationSchema, loginSchema, forgotPasswordSchema, userResetPasswordSchema } from '../middleware/auth';
 import { validateInput, emailPhoneValidator } from '../middleware/validation';
@@ -19,3 +19,4 @@ authRoute.post(`${BASE_URL}/forgot-password`, validateInput(forgotPasswordSchema
 
 authRoute.get(`${BASE_URL}/reset-password`, validateInput(userResetPasswordSchema), resetPassword);
 
+authRoute.get(`${BASE_URL}/logout`, logOut);

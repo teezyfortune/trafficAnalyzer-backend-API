@@ -89,3 +89,12 @@ export const loginUser = async (req, res) => {
 		})
 	}
 }
+export const logOut = (req, res) => {
+	try {
+	  return res.status(200).json({
+		message: 'Logout was successful'
+	  });
+	} catch (error) {
+	  return res.status(500).json({ status: 500, message: SERVER_ERROR_MESSAGE });
+	}
+};
