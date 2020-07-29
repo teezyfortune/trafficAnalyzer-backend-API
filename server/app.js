@@ -16,7 +16,7 @@ app.use(log('dev'));
 app.use(cors())
 
 app.use('/api/v1', Routes);
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 8000;
 const server = `http://localhost:${port}`;
 
 

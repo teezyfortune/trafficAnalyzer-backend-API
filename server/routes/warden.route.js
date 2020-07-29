@@ -11,7 +11,7 @@ const BASE_URL = '/report'
 wardenRoute.post(`${BASE_URL}/report-traffic`, WardenVerifyTokenMiddleware, validateInput(reportSchema), sendReport)
 
 
-wardenRoute.get(`${BASE_URL}/warden-report`, WardenVerifyTokenMiddleware, fetchOneReportWardenId)
+wardenRoute.get(`${BASE_URL}/:reportId/warden-report`, WardenVerifyTokenMiddleware, fetchOneReportWardenId)
 
 
 wardenRoute.get(`${BASE_URL}/all-wardenReports`, WardenVerifyTokenMiddleware, fetchAllReportByWardenId);

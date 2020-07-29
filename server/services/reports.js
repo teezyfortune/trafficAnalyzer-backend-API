@@ -40,9 +40,9 @@ export const findReport = async (reportId) => {
 
 }
 
-export const findReportByUserId = async (userId) => {
+export const findReportByUserId = async (userId, reportId) => {
 	try {
-		return await Reports.findOne({userId: userId})
+		return await Reports.findOne({_id:reportId, userId: userId})
 	} catch (err) {
 		return err
 	}

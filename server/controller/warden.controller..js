@@ -1,5 +1,5 @@
 import { geLatLong, findReportByUserId, reportTraffic, allReportByUserId, updateReportsByWardenId } from '../services/reports';
-import { NOT_EXIST, SERVER_ERROR, REPORT_SUCCESS, NOT_WARDEN, REPORTS, REPORT_UPDATE, NO_REPORT} from '../utils/constant';
+import { NOT_EXIST, SERVER_ERROR, REPORT_SUCCESS, NOT_WARDEN, REPORTS, REPORT_UPDATE, NO_REPORT, NO_UPDATES} from '../utils/constant';
 import { findUser} from '../services/user';
 
 
@@ -33,15 +33,23 @@ export const sendReport = async (req, res) => {
 
 export const fetchOneReportWardenId = async (req, res) => {
 	try {
-		const {userId} = req.token.payload;
-		const report = await findReportByUserId(userId)
+		const { userId } = req.token.payload;
+		const { reportId } = req.params;
+		const report = await findReportByUserId(userId, reportId)
+		if (!report || report === null) {
+			return res.status(404).json({
+				status: 404,
+				message: NO_UPDATES,
+			})
+		}
 		return res.status(200).json({
 			status: 200,
 			message: REPORTS,
 			data: report
 		})
 	} catch (err) {
-		return res.status(500).json({ status: 500, message: SERVER_ERROR })	}
+		return res.status(500).json({ status: 500, message: SERVER_ERROR })
+	}
 }
 
 export const fetchAllReportByWardenId = async (req, res) => {
@@ -51,7 +59,7 @@ export const fetchAllReportByWardenId = async (req, res) => {
 		if (report.length === 0) {
 			return res.status(404).json({
 				status: 404,
-				message: NO_REPORT,
+				message: NO_UPDATES,
 			})
 		}
 		return res.status(200).json({
